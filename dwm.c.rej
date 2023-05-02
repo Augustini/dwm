@@ -1,11 +1,10 @@
---- dwm.c	2022-01-07 12:42:18.000000000 +0100
-+++ dwm.c	2022-08-17 22:14:41.813809073 +0200
-@@ -1913,7 +1923,7 @@ updategeom(void)
- 					m->clients = c->next;
- 					detachstack(c);
- 					c->mon = mons;
--					attach(c);
-+					attachbottom(c);
- 					attachstack(c);
- 				}
- 				if (m == selmon)
+--- dwm.c
++++ dwm.c
+@@ -255,6 +269,7 @@ static char stext[256];
+ static int screen;
+ static int sw, sh;           /* X display screen geometry width, height */
+ static int bh, blw = 0;      /* bar geometry */
++static int enablegaps = 1;   /* enables gaps, used by togglegaps */
+ static int lrpad;            /* sum of left and right padding for text */
+ static int (*xerrorxlib)(Display *, XErrorEvent *);
+ static unsigned int numlockmask = 0;
