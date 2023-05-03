@@ -67,7 +67,7 @@ static const char *termcmd[]  = { "st", NULL };
 /*volume*/
 static const char *upvol[] = { "/usr/bin/amixer", "set", "Master", "5%+", NULL };
 static const char *downvol[] = { "/usr/bin/amixer", "set", "Master", "5%-", NULL };
-static const char *mutevol[] = { "/usr/bin/amixerl", "set", "Master", "toggle", NULL };
+static const char *mutevol[] = { "/usr/bin/amixer", "set", "Master", "toggle", NULL };
 #include "movestack.c"
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
