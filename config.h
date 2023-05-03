@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
@@ -12,11 +12,11 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
-static const char col_gray1[]       = "#282a36";
-static const char col_gray2[]       = "#f8f8f2";
-static const char col_gray3[]       = "#f8f8f2";
-static const char col_gray4[]       = "#282a36";
-static const char col_cyan[]        = "#bd93f9";
+static const char col_gray1[]       = "#373b41"; // cor de fundo dos número das tags e do slstatus
+static const char col_gray2[]       = "#282a2e"; // cor das tags não selecionadas
+static const char col_gray3[]       = "#e7edf3"; // cor dos caracteres do slstatus
+static const char col_gray4[]       = "#de935f"; // cor das tags quando selecionadas e do nome do programa aberto
+static const char col_cyan[]        = "#373b41"; // cor de fundo da barra e do highlight das janelas
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -72,9 +72,6 @@ static const char *mutevol[] = { "/usr/bin/amixer", "set", "Master", "toggle", N
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_F11,    spawn, {.v = downvol } },
-	{ MODKEY,                       XK_F9,     spawn, {.v = mutevol } },
-	{ MODKEY,                       XK_F12,    spawn, {.v = upvol   } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,	             	XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -83,9 +80,20 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_z,      zoom,           {0} },
+	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY,		        XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_F11,    spawn, {.v = downvol } },
+	{ MODKEY,                       XK_F12,    spawn, {.v = upvol   } },
+	{ MODKEY,                       XK_F9,     spawn, {.v = mutevol } },
 	{ MODKEY|Mod1Mask,              XK_h,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_l,      incrgaps,       {.i = -1 } },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
@@ -101,15 +109,7 @@ static const Key keys[] = {
 	{ MODKEY|Mod4Mask,              XK_y,      incrohgaps,     {.i = +1 } },
 	{ MODKEY|Mod4Mask,              XK_o,      incrohgaps,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },    
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,		        XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
