@@ -21,3 +21,8 @@ modkey + shift + q: reinicia o dwm
 modkey + alt +shift + q: reinicia o dwm de uma forma legal e maneira (restartsig)
 modkey + 1 - 9: muda de tags
 modkey + shift +1 - 9: envia client para tag
+modkey + F11: diminui volume em 5%
+modkey + F12: aumenta o volume em 5%
+modkey + F9: muta o volume
+
+Lembrar de instalar o alsa-utils e a fonte JetBrainsMono Nerd Font e FontAwesome para tudo rodar certinho e bem.
